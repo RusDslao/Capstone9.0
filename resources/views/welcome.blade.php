@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Capstone</title>
+        <title>MLA inc.</title>
 
         <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
                 <link href="{{ mix('css/app.css') }}" rel="stylesheet">
