@@ -18,7 +18,9 @@
     <body class="antialiased">        
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Monalisa Academy INC.</a>
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Mona Lisa Academy Inc.') }}
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -52,7 +54,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link " href="{{ route('register') }}">{{ __('Enroll Now') }}</a>
+                                    <a href="{{ route('enrollment.choose') }}" class="nav-link">Enroll Now</a>
                                 </li>
                             
                             @endif
