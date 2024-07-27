@@ -36,8 +36,7 @@ Route::middleware(['auth', 'user-role:teacher'])->group(function () {
 });
 
 // Enrollments
-Route::get('/enrollment/choose', [EnrollmentController::class, 'chooseEnrollmentType'])->name('enrollment.choose');
-Route::get('/enrollment/new', [EnrollmentController::class, 'newEnrollment'])->name('enrollment.new');
-Route::get('/enrollment/existing', [EnrollmentController::class, 'existingEnrollment'])->name('enrollment.existing');
-Route::post('/enrollment/new', [EnrollmentController::class, 'store'])->name('enrollment.store');
+
+Route::get('/form', [EnrollmentController::class, 'showForm'])->name('enrollment.form');
+Route::post('/submit', [EnrollmentController::class, 'store'])->name('submit');
 
