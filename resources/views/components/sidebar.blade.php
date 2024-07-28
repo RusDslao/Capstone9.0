@@ -72,50 +72,58 @@
 <style>
 
 .sidebar-wrapper {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-    max-width: 260px;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    overflow-y: auto;
-    background-color: #f8f9fa; /* Light background for a modern look */
-}
-    .list-group-item.active {
-        background-color: #007bff;
-        color: white;
-    }
-    .list-group-item {
-        transition: background-color 0.3s, color 0.3s;
-    }
-    .list-group-item:hover {
-        background-color: rgba(0, 123, 255, 0.1);
-        color: #007bff;
-    }
-    .section-title {
-        color: #6c757d;
-        font-size: 0.875rem;
-        text-transform: uppercase;
-    }
-    .bg-dark {
-        background-color: #343a40 !important;
-    }
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 260px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            overflow-y: auto;
+            background-color: #f8f9fa; /* Light background for a modern look */
+        }
+        .list-group-item.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .list-group-item {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .list-group-item:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+        .section-title {
+            color: #6c757d;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+        .content-wrapper {
+            margin-left: 260px; /* Adjust based on sidebar width */
+            padding: 20px;
+        }
 </style>
 
 <!-- Ensure this JavaScript is included -->
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const links = document.querySelectorAll('.list-group-item');
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.list-group-item');
 
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                links.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    links.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
             });
         });
-    });
 </script>
