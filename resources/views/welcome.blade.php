@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>MLA inc.</title>
-
         <link href="https://fonts.bunny.net/css?family=Poppins" rel="stylesheet"> <!-- Changed to Poppins -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -13,6 +12,8 @@
     <body class="antialiased">        
 
         @include('partials.header')
+
+        @include('components.sidebar')
 
 
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
