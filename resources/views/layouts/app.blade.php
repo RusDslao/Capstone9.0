@@ -8,22 +8,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Mona Lisa Academy Inc.') }}</title>
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
     
+    <!-- Vite CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-
         @include('partials.header')
-
 
         <main class="py-4">
             @yield('content')
-            
         </main>
     </div>
-</body>
-<script src="{{ mix('js/app.js') }}" defer></script>
 
+    <!-- Vite JS -->
+</body>
 </html>

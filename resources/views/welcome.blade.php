@@ -6,7 +6,7 @@
 
         <title>MLA inc.</title>
         <link href="https://fonts.bunny.net/css?family=Poppins" rel="stylesheet"> <!-- Changed to Poppins -->
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
     <body class="antialiased">        
@@ -20,6 +20,5 @@
             <!-- Content goes here -->
         </div>
     </body>
-    <script src="{{ mix('js/app.js') }}" defer></script>
 
 </html>

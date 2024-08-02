@@ -56,6 +56,10 @@ class LoginController extends Controller
                 return redirect()->route('superadmin.dashboard');
             } elseif (auth()->user()->role == 'student') {
                 return redirect()->route('student.dashboard');
+            } elseif (auth()->user()->role == 'cashier') {
+                return redirect()->route('cashier.dashboard');
+            } elseif (auth()->user()->role == 'teacher') {
+                return redirect()->route('teacher.dashboard');
             } else {
                 return redirect('/');
             }

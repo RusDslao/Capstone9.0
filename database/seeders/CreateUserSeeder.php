@@ -46,6 +46,12 @@ class CreateUserSeeder extends Seeder
                 'role'=> 4,
                 'password'=> bcrypt('123456'),
              ],
+             [
+               'name'=>'Dave',
+               'email'=>'dasilaorussel@gmail.com',
+               'role'=> 1,
+               'password'=> bcrypt('123456'),
+            ],
             
         ];
     

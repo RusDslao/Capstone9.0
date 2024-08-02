@@ -6,11 +6,15 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/sidebar.css',
+                'resources/js/sidebar.css',
                 'resources/js/app.js',
-                // Add the path to Bootstrap Icons CSS
-                'node_modules/bootstrap-icons/font/bootstrap-icons.css'
             ],
             refresh: true,
         }),
     ],
+    build: {
+        outDir: 'public/build',
+        manifest: true,
+    }
 });

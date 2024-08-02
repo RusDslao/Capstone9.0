@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EnrollmentController;
@@ -19,7 +20,14 @@ Route::middleware(['auth', 'user-role:student'])->group(function () {
 
 // Admin Routes
 Route::middleware(['auth', 'user-role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [HomeController::class, 'admin'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/enrollment', [AdminController::class, 'enrollment'])->name('admin.enrollment');
+    Route::get('/admin/masterlist', [AdminController::class, 'masterlist'])->name('admin.masterlist');
+    Route::get('/admin/schedule', [AdminController::class, 'schedule'])->name('admin.schedule');
+    Route::get('/admin/sections', [AdminController::class, 'sections'])->name('admin.sections');
+    Route::get('/admin/accounts', [AdminController::class, 'accounts'])->name('admin.accounts');
+    Route::get('/admin/announcements', [AdminController::class, 'announcements'])->name('admin.announcements');
+    Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
 });
 
 // Superadmin Routes

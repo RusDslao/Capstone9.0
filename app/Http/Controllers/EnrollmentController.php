@@ -12,6 +12,7 @@ class EnrollmentController extends Controller
     {
         return view('enrollment.form');
     }
+    
 
     // Handle form submission
     public function store(Request $request)

@@ -30,15 +30,6 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function admin()
-    {
-        return view('admin.dashboard',["msg"=>"Hello! I am admin"]);
-    }
-   /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function superadmin()
     {
         return view('superadmin.dashboard',["msg"=>"Hello! I am superadmin"]);
