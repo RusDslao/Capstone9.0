@@ -6,43 +6,50 @@
             <div class="container mt-6">
                 <div class="container mt-5">
                     <div class="row">
+                        <!-- New Enrollments Card -->
                         <div class="col-md-3">
                             <div class="card status-card">
                                 <div class="card-header">New Enrollments</div>
                                 <div class="card-body">
-                                    <h5 class="card-title">10</h5>
+                                    <h5 class="card-title">{{ $newEnrollments }}</h5>
                                     <p class="card-text">Awaiting approval</p>
                                 </div>
                             </div>
                         </div>
+                    
+                        <!-- Pending Verification Card -->
                         <div class="col-md-3">
                             <div class="card status-card">
                                 <div class="card-header">Pending Verification</div>
                                 <div class="card-body">
-                                    <h5 class="card-title">5</h5>
+                                    <h5 class="card-title">16</h5>
                                     <p class="card-text">Needs verification</p>
                                 </div>
                             </div>
                         </div>
+                    
+                        <!-- Completed Enrollments Card -->
                         <div class="col-md-3">
                             <div class="card status-card">
                                 <div class="card-header">Completed Enrollments</div>
                                 <div class="card-body">
-                                    <h5 class="card-title">20</h5>
+                                    <h5 class="card-title">12</h5>
                                     <p class="card-text">Successfully enrolled</p>
                                 </div>
                             </div>
                         </div>
+                    
+                        <!-- Total Students Card -->
                         <div class="col-md-3">
                             <div class="card status-card">
                                 <div class="card-header">Total Students</div>
                                 <div class="card-body">
-                                    <h5 class="card-title">100</h5>
+                                    <h5 class="card-title">12</h5>
                                     <p class="card-text">Total enrolled</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                                                         
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6 d-flex">

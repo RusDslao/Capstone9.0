@@ -24,7 +24,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard', ["msg" => "Hello! I am admin"]);
+        $newEnrollments = \App\Models\Enrollment::where('status', 'new')->count();
+        // Add any other data you need for the view
+    
+        return view('admin.dashboard', compact('newEnrollments'));
     }
 
     public function enrollment()

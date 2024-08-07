@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -38,6 +39,7 @@ class CreateEnrollmentsTable extends Migration
             $table->string('mother_occupation');
             $table->string('payment_method');
             $table->string('payment_mode');
+            $table->enum('status', ['new', 'pending', 'approved', 'rejected'])->default('new'); // Enum definition
             $table->timestamps();
         });
     }    

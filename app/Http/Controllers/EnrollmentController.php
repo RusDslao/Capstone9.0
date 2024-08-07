@@ -8,14 +8,20 @@ use App\Models\Enrollment;
 
 class EnrollmentController extends Controller
 {
+    public function new()
+    {
+        $newEnrollments = Enrollment::where('status', 'new')->count();
+        return view('new', compact('newEnrollments'));
+    }
+
     public function showForm()
     {
         return view('enrollment.form'); // Adjust the view path as needed
     }
-    
+
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'education_level' => 'required|string',
             'new_existing' => 'required|string',
             'grade' => 'nullable|string',
@@ -46,12 +52,9 @@ class EnrollmentController extends Controller
             'payment_method' => 'required|string',
             'payment_mode' => 'required|string',
         ]);
-    
-        Enrollment::create($validatedData);
-    
-        return redirect()->back()->with('success', 'Your form has been successfully submitted!');
-        return redirect()->route('enrollment.form')->with('success', 'Your action was successful!');
 
+        Enrollment::create($request->all());
+
+        return redirect()->route('enrollment.form')->with('success', 'Form submitted successfully!');
     }
-    
 }
