@@ -46,5 +46,5 @@ Route::middleware(['auth', 'user-role:teacher'])->group(function () {
 // Enrollments
 
 Route::get('/form', [EnrollmentController::class, 'showForm'])->name('enrollment.form');
-Route::post('/submit', [EnrollmentController::class, 'store'])->name('submit');
+Route::post('/submit', [EnrollmentController::class, 'store'])->name('enrollment.store');
 

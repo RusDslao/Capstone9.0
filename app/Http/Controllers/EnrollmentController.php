@@ -1,72 +1,57 @@
 <?php
+// app/Http/Controllers/EnrollmentController.php
 
 namespace App\Http\Controllers;
 
-use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use App\Models\Enrollment;
 
 class EnrollmentController extends Controller
 {
-    // Show the form
     public function showForm()
     {
-        return view('enrollment.form');
+        return view('enrollment.form'); // Adjust the view path as needed
     }
     
-
-    // Handle form submission
     public function store(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'enrollmentType' => 'required|string|max:255',
-            'fullName' => 'required|string|max:255',
-            'dob' => 'required|date',
-            'email' => 'required|email|unique:enrollments,email',
-            'mobileNumber' => 'required|string|max:15',
+        $validatedData = $request->validate([
+            'education_level' => 'required|string',
+            'new_existing' => 'required|string',
+            'grade' => 'nullable|string',
+            'first_name' => 'required|string',
+            'middle_name' => 'nullable|string',
+            'last_name' => 'required|string',
             'gender' => 'required|string',
-            'gradeApplyingFor' => 'required|string',
-            'fathersName' => 'required|string|max:255',
-            'mothersName' => 'required|string|max:255',
-            'guardianName' => 'nullable|string|max:255',
-            'guardianContact' => 'nullable|string|max:15',
-            'guardianEmail' => 'nullable|email',
-            'address' => 'required|string|max:255',
-            'previousSchool' => 'required|string|max:255',
-            'lastGradeCompleted' => 'required|string|max:255',
-            'attachments.*' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:2048',
-            'submissionMethod' => 'required|string',
+            'age' => 'required|integer',
+            'citizenship' => 'required|string',
+            'suffix_name' => 'nullable|string',
+            'birthplace' => 'required|string',
+            'religion' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'street_number' => 'required|string',
+            'street' => 'required|string',
+            'subdivision' => 'required|string',
+            'city' => 'required|string',
+            'province' => 'required|string',
+            'barangay' => 'required|string',
+            'father_name' => 'required|string',
+            'mother_name' => 'required|string',
+            'guardian_name' => 'nullable|string',
+            'parent_email' => 'required|email',
+            'parent_phone' => 'required|string',
+            'parent_mobile' => 'required|string',
+            'father_occupation' => 'required|string',
+            'mother_occupation' => 'required|string',
+            'payment_method' => 'required|string',
+            'payment_mode' => 'required|string',
         ]);
+    
+        Enrollment::create($validatedData);
+    
+        return redirect()->back()->with('success', 'Your form has been successfully submitted!');
+        return redirect()->route('enrollment.form')->with('success', 'Your action was successful!');
 
-        // Handle file uploads
-        $attachmentPaths = [];
-        if ($request->hasFile('attachments')) {
-            foreach ($request->file('attachments') as $file) {
-                $attachmentPaths[] = $file->store('attachments', 'public');
-            }
-        }
-
-        // Store the data in the database
-        Enrollment::create([
-            'enrollmentType' => $request->input('enrollmentType'),
-            'fullName' => $request->input('fullName'),
-            'dob' => $request->input('dob'),
-            'email' => $request->input('email'),
-            'mobileNumber' => $request->input('mobileNumber'),
-            'gender' => $request->input('gender'),
-            'gradeApplyingFor' => $request->input('gradeApplyingFor'),
-            'fathersName' => $request->input('fathersName'),
-            'mothersName' => $request->input('mothersName'),
-            'guardianName' => $request->input('guardianName'),
-            'guardianContact' => $request->input('guardianContact'),
-            'guardianEmail' => $request->input('guardianEmail'),
-            'address' => $request->input('address'),
-            'previousSchool' => $request->input('previousSchool'),
-            'lastGradeCompleted' => $request->input('lastGradeCompleted'),
-            'documents' => json_encode($attachmentPaths),
-            'submissionMethod' => $request->input('submissionMethod'),
-        ]);
-
-        return redirect()->back()->with('success', 'Enrollment submitted successfully!');
     }
+    
 }

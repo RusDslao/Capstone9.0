@@ -1,38 +1,39 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Enrollment extends Model
 {
-    use HasFactory;
-
-    // Specify the table if it's not the plural form of the model name
-    protected $table = 'enrollments'; 
-
-    // Specify the fillable fields
     protected $fillable = [
-        'enrollmentType',
-        'fullName',
-        'dob',
-        'email',
-        'mobileNumber',
+        'education_level',
+        'new_existing',
+        'grade',
+        'first_name',
+        'middle_name',
+        'last_name',
         'gender',
-        'gradeApplyingFor',
-        'fathersName',
-        'mothersName',
-        'guardianName',
-        'guardianContact',
-        'guardianEmail',
-        'address',
-        'previousSchool',
-        'lastGradeCompleted',
-        'documents',
-        'submissionMethod',
+        'age',
+        'citizenship',
+        'suffix_name',
+        'birthplace',
+        'religion',
+        'date_of_birth',
+        'street_number',
+        'street',
+        'subdivision',
+        'city',
+        'province',
+        'barangay',
+        'father_name',
+        'mother_name',
+        'guardian_name',
+        'parent_email',
+        'parent_phone',
+        'parent_mobile',
+        'father_occupation',
+        'mother_occupation',
+        'payment_method',
+        'payment_mode',
     ];
-
-    // If timestamps are not used, set to false
-    public $timestamps = false; 
 }

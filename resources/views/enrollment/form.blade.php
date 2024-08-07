@@ -1,262 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Enrollment Form</title>
-    <link href="{{ mix('css/icon.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/enrollment/form.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <header class="navbar-brand fw-bold" style="text-decoration: none; margin-bottom: 20px;">
-            <a href="{{ url('/') }}" style="text-decoration: none; color: inherit;">School Enrollment</a>
-        </header>
-        <form action="{{ url('/submit') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <ul class="nav nav-pills steps" id="pills-tab" role="tablist">
-                <!-- Nav tabs go here -->
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link step active" id="pills-home-tab" data-bs-toggle="pill" role="tab" data-bs-target="#pills-home" aria-controls="pills-home" aria-selected="true">
-                        <i class="bi bi-info-circle" onclick="event.preventDefault(); event.stopPropagation();"></i>
-                        <span class="step-text" onclick="event.preventDefault(); event.stopPropagation();">Enrollment Type</span>
-                    </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link step" id="pills-profile-tab" data-bs-toggle="pill" role="tab" data-bs-target="#pills-profile" aria-controls="pills-profile" aria-selected="false">
-                        <i class="bi bi-person" onclick="event.preventDefault(); event.stopPropagation();"></i>
-                        <span class="step-text" onclick="event.preventDefault(); event.stopPropagation();">Student Information</span>
-                    </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link step" id="pills-contact-tab" data-bs-toggle="pill" role="tab" data-bs-target="#pills-contact" aria-controls="pills-contact" aria-selected="false">
-                        <i class="bi bi-book" onclick="event.preventDefault(); event.stopPropagation();"></i>
-                        <span class="step-text" onclick="event.preventDefault(); event.stopPropagation();">Previous Education</span>
-                    </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link step" id="pills-attachments-tab" data-bs-toggle="pill" role="tab" data-bs-target="#pills-attachments" aria-controls="pills-attachments" aria-selected="false">
-                        <i class="bi bi-paperclip" onclick="event.preventDefault(); event.stopPropagation();"></i>
-                        <span class="step-text" onclick="event.preventDefault(); event.stopPropagation();">Attachments</span>
-                    </a>
-                </li>
-            </ul>
-            
-            <div class="tab-content" id="pills-tabContent">
-                <!-- Tab panes go here -->
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 col-lg-6">
-                            <div class="form-details text-center">
-                                <h5 class="title">Enrollment Type</h5>
-                                <div class="fields mt-3">
-                                    <div class="input-field">
-                                        <label for="enrollmentType" class="form-label">Select Enrollment Type</label>
-                                        <select id="enrollmentType" name="enrollmentType" class="form-select" required>
-                                            <option disabled selected>Select type</option>
-                                            <option value="new">New Enrollment</option>
-                                            <option value="existing">Existing Enrollment</option>
-                                        </select>
-                                    </div>
+@extends('layouts.app')
+
+@section('content')
+@vite(['resources/css/enrollment/form.css', 'resources/js/enrollment/form.js'])
+
+<div class="d-flex align-items-center vh-100">
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-section mb-4">
+                            <h2 class="text-left mb-2 font-weight-bold">Online Enrollment for New or Existing Students</h2>
+                            <h6 class="text-left text-muted">Complete this form to enroll your child at Mona Lisa Academy.</h6>
+                            
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Success!</strong> {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                                <button type="button" class="btn btn-primary nextBtn mt-4">
-                                    <span class="btnText">Next</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            @endif
 
-                <!-- Student Information -->
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="form-details">
-                        <h5 class="title">Student Information</h5>
-                        <div class="fields">
-                            <div class="input-field mb-3">
-                                <label for="full-name">Full Name</label>
-                                <input type="text" id="full-name" name="fullName" placeholder="Enter your name" class="form-control" required>
-                                <div class="invalid-feedback">Please enter your name.</div>
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" name="dob" class="form-control" required>
-                                <div class="invalid-feedback">Please enter your date of birth.</div>
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" class="form-control" required>
-                                <div class="invalid-feedback">Please enter a valid email.</div>
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="mobile">Mobile Number</label>
-                                <input type="tel" id="mobile" name="mobileNumber" placeholder="Enter mobile number" class="form-control" required>
-                                <div class="invalid-feedback">Please enter your mobile number.</div>
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="gender">Gender</label>
-                                <select id="gender" name="gender" class="form-select" required>
-                                    <option disabled selected>Select gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Others</option>
-                                </select>
-                                <div class="invalid-feedback">Please select your gender.</div>
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="grade">Grade Applying For</label>
-                                <input type="tel" id="grade" name="gradeApplyingFor" placeholder="Enter grade (Ex. 7)" class="form-control" required>
-                                <div class="invalid-feedback">Please enter a valid grade.(Ex. 7)</div>
-                            </div>
-                        </div>
-                
-                        <h5 class="title mt-4">Parent/Guardian Information</h5>
-                        <div class="fields">
-                            <div class="input-field mb-3">
-                                <label for="father-name">Father's Name</label>
-                                <input type="text" id="father-name" name="fathersName" placeholder="Enter father's name" class="form-control" required>
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="mother-name">Mother's Name</label>
-                                <input type="text" id="mother-name" name="mothersName" placeholder="Enter mother's name" class="form-control" required>
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="guardian-name">Guardian's Name (if applicable)</label>
-                                <input type="text" id="guardian-name" name="guardianName" placeholder="Enter guardian's name" class="form-control">
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="guardian-contact">Guardian's Contact Number</label>
-                                <input type="tel" id="guardian-contact" name="guardianContact" placeholder="Enter guardian's contact number" class="form-control">
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="guardian-email">Guardian's Email Address</label>
-                                <input type="email" id="guardian-email" name="guardianEmail" placeholder="Enter guardian's email" class="form-control">
-                            </div>
-                            <div class="input-field mb-3">
-                                <label for="address">Address</label>
-                                <input type="text" id="address" name="address" placeholder="Enter address" class="form-control" required>
-                            </div>
-                        </div>
-                
-                        <div class="buttons d-flex justify-content-between mt-3">
-                            <button type="button" class="btn btn-secondary d-flex align-items-center backBtn">
-                                <span class="btnText">Back</span>
-                            </button>
-                            <button type="button" class="btn btn-primary d-flex align-items-center nextBtn">
-                                <span class="btnText">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Previous Education -->
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <div class="form-details">
-                        <h5 class="title">Previous Education</h5>
-                        <div class="fields">
-                            <div class="input-field">
-                                <label for="previousSchool">Previous School</label>
-                                <input type="text" id="previousSchool" name="previousSchool" placeholder="Enter previous school name" class="form-control" required>
-                            </div>
-                            <div class="input-field">
-                                <label for="lastGradeCompleted">Last Grade Completed</label>
-                                <input type="tel" id="lastGradeCompleted" name="lastGradeCompleted" placeholder="Enter last grade completed" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <button type="button" class="backBtn btn btn-secondary mt-4">
-                                <span class="btnText">Back</span>
-                            </button>
-                            <button type="button" class="nextBtn btn btn-primary mt-4">
-                                <span class="btnText">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Error!</strong> Please fix the errors below.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
 
-                <!-- Attachments -->
-                <div class="tab-pane fade" id="pills-attachments" role="tabpanel" aria-labelledby="pills-attachments-tab">
-                    <div class="form-details">
-                        <h5 class="title">Attachments</h5>
-                        <p class="requirements">
-                            Upload required PDF documents below and choose the submission method.
-                        </p>
-            
-                        <!-- Requirements Section -->
-                        <div class="requirements-info mb-4">
-                            <h5 class="subtitle mb-3">Requirements by Education Level</h5>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card border-primary mb-3">
-                                        <div class="card-header bg-primary text-white">Preschool</div>
-                                        <div class="card-body">
-                                            <ul class="list-unstyled">
-                                                <li><i class="bi bi-check-circle text-success"></i> Birth Certificate</li>
-                                                <li><i class="bi bi-check-circle text-success"></i> Health Certificate</li>
-                                                <li><i class="bi bi-check-circle text-success"></i> Recent 2x2 Photo</li>
-                                            </ul>
+                        </div>
+                        <form id="formWizard" method="POST" action="{{ route('enrollment.store') }}" class="w-100" novalidate>
+                            @csrf
+                            <div class="d-flex">
+                                <div class="nav flex-column nav-pills" id="pills-tab" role="tablist">
+                                    @foreach([
+                                        ['id' => 'basic', 'icon' => 'bi-person', 'label' => 'Basic Info'],
+                                        ['id' => 'student', 'icon' => 'bi-person-lines-fill', 'label' => 'Student Info'],
+                                        ['id' => 'address', 'icon' => 'bi-house-door', 'label' => 'Address'],
+                                        ['id' => 'parent', 'icon' => 'bi-person-check', 'label' => 'Parent Info'],
+                                        ['id' => 'payment', 'icon' => 'bi-credit-card', 'label' => 'Mode of Payment']
+                                    ] as $tab)
+                                    <a class="nav-link d-flex align-items-center{{ $loop->first ? ' active' : '' }}"
+                                       id="pills-{{ $tab['id'] }}-tab"
+                                       data-bs-toggle="pill"
+                                       href="#pills-{{ $tab['id'] }}"
+                                       role="tab"
+                                       aria-controls="pills-{{ $tab['id'] }}"
+                                       aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                        <i class="bi {{ $tab['icon'] }} d-none d-md-inline"></i>
+                                        <span class="d-none d-md-inline">{{ $tab['label'] }}</span>
+                                        <i class="bi {{ $tab['icon'] }} d-md-none"></i>
+                                    </a>
+                                    @endforeach
+                                </div>
+                                
+                                <div class="tab-content flex-grow-1 p-3">
+                                    @foreach([
+                                        ['id' => 'basic', 'title' => 'Basic Information', 'fields' => [
+                                            ['label' => 'Education Level', 'type' => 'select', 'id' => 'educationLevel', 'name' => 'education_level', 'options' => [
+                                                '' => 'Select education level',
+                                                'preschool' => 'Pre-School',
+                                                'primary' => 'Primary',
+                                                'secondary' => 'Secondary'
+                                            ]],
+                                            ['label' => 'New or Existing', 'type' => 'select', 'id' => 'newExisting', 'name' => 'new_existing', 'options' => [
+                                                '' => 'Select if new or existing',
+                                                'new' => 'New',
+                                                'existing' => 'Existing'
+                                            ]],
+                                            ['label' => 'Grade', 'type' => 'select', 'id' => 'grade', 'name' => 'grade', 'options' => [
+                                                '' => 'Select grade'
+                                            ]]
+                                        ]],
+                                        ['id' => 'student', 'title' => 'Student Information', 'fields' => [
+                                            ['label' => 'First Name', 'type' => 'text', 'id' => 'firstName', 'name' => 'first_name'],
+                                            ['label' => 'Middle Name', 'type' => 'text', 'id' => 'middleName', 'name' => 'middle_name'],
+                                            ['label' => 'Last Name', 'type' => 'text', 'id' => 'lastName', 'name' => 'last_name'],
+                                            ['label' => 'Gender', 'type' => 'select', 'id' => 'gender', 'name' => 'gender', 'options' => [
+                                                '' => 'Select gender',
+                                                'male' => 'Male',
+                                                'female' => 'Female',
+                                                'other' => 'Other'
+                                            ]],
+                                            ['label' => 'Age', 'type' => 'number', 'id' => 'age', 'name' => 'age'],
+                                            ['label' => 'Citizenship', 'type' => 'text', 'id' => 'citizenship', 'name' => 'citizenship'],
+                                            ['label' => 'Suffix Name', 'type' => 'text', 'id' => 'suffixName', 'name' => 'suffix_name'],
+                                            ['label' => 'Birthplace', 'type' => 'text', 'id' => 'birthplace', 'name' => 'birthplace'],
+                                            ['label' => 'Religion', 'type' => 'text', 'id' => 'religion', 'name' => 'religion'],
+                                            ['label' => 'Date of Birth', 'type' => 'date', 'id' => 'dateOfBirth', 'name' => 'date_of_birth']
+                                        ]],
+                                        ['id' => 'address', 'title' => 'Address Information', 'fields' => [
+                                            ['label' => 'Street # / Unit #', 'type' => 'text', 'id' => 'streetNumber', 'name' => 'street_number'],
+                                            ['label' => 'Street', 'type' => 'text', 'id' => 'street', 'name' => 'street'],
+                                            ['label' => 'Subdivision / Village / Bldg.', 'type' => 'text', 'id' => 'subdivision', 'name' => 'subdivision'],
+                                            ['label' => 'City / Municipality', 'type' => 'text', 'id' => 'city', 'name' => 'city'],
+                                            ['label' => 'Province', 'type' => 'text', 'id' => 'province', 'name' => 'province'],
+                                            ['label' => 'Barangay', 'type' => 'text', 'id' => 'barangay', 'name' => 'barangay']
+                                        ]],
+                                        ['id' => 'parent', 'title' => 'Parent Information', 'fields' => [
+                                            ['label' => "Father's Name", 'type' => 'text', 'id' => 'fatherName', 'name' => 'father_name'],
+                                            ['label' => "Mother's Name", 'type' => 'text', 'id' => 'motherName', 'name' => 'mother_name'],
+                                            ['label' => "Guardian's Name (if applicable)", 'type' => 'text', 'id' => 'guardianName', 'name' => 'guardian_name'],
+                                            ['label' => 'Parent Email', 'type' => 'email', 'id' => 'parentEmail', 'name' => 'parent_email'],
+                                            ['label' => 'Parent Phone', 'type' => 'tel', 'id' => 'parentPhone', 'name' => 'parent_phone'],
+                                            ['label' => 'Parent Mobile Number', 'type' => 'tel', 'id' => 'parentMobile', 'name' => 'parent_mobile'],
+                                            ['label' => "Father's Occupation", 'type' => 'text', 'id' => 'fatherOccupation', 'name' => 'father_occupation'],
+                                            ['label' => "Mother's Occupation", 'type' => 'text', 'id' => 'motherOccupation', 'name' => 'mother_occupation']
+                                        ]],
+                                        ['id' => 'payment', 'title' => 'Payment Information', 'fields' => [
+                                            ['label' => 'Payment Method', 'type' => 'select', 'id' => 'paymentMethod', 'name' => 'payment_method', 'options' => [
+                                                '' => 'Select payment method',
+                                                'inPerson' => 'In-Person',
+                                                'bankTransfer' => 'Bank Transfer'
+                                            ]],
+                                            ['label' => 'Mode of Payment', 'type' => 'select', 'id' => 'paymentMode', 'name' => 'payment_mode', 'options' => [
+                                                '' => 'Select mode of payment',
+                                                'downPayment' => 'Down Payment',
+                                                'monthly' => 'Monthly',
+                                                'cash' => 'Cash'
+                                            ]]
+                                        ]]
+                                    ] as $tab)
+                                    <div class="tab-pane fade{{ $loop->first ? ' show active' : '' }}" id="pills-{{ $tab['id'] }}" role="tabpanel" aria-labelledby="pills-{{ $tab['id'] }}-tab">
+                                        <h4 class="mb-4">{{ $tab['title'] }}</h4>
+                                        <div class="row">
+                                            @foreach($tab['fields'] as $field)
+                                            <div class="col-md-6 mb-3">
+                                                <label for="{{ $field['id'] }}" class="form-label">{{ $field['label'] }}</label>
+                                                @if($field['type'] === 'select')
+                                                <select class="form-select @error($field['name']) is-invalid @enderror" id="{{ $field['id'] }}" name="{{ $field['name'] }}" required>
+                                                    @foreach($field['options'] as $value => $option)
+                                                    <option value="{{ $value }}"{{ old($field['name']) == $value ? ' selected' : '' }}>{{ $option }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error($field['name'])
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                @else
+                                                <input type="{{ $field['type'] }}" class="form-control @error($field['name']) is-invalid @enderror" id="{{ $field['id'] }}" name="{{ $field['name'] }}" value="{{ old($field['name']) }}"{{ isset($field['required']) && $field['required'] ? ' required' : '' }}>
+                                                @error($field['name'])
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                @endif
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            @if($loop->first)
+                                            <button type="button" class="btn btn-primary btn-sm" id="nextButton-{{ $tab['id'] }}">Next</button>
+                                            @elseif($loop->last)
+                                            <button type="submit" class="btn btn-primary btn-sm" id="submitButton">Submit</button>
+                                            @else
+                                            <button type="button" class="btn btn-secondary btn-sm" id="backButton-{{ $tab['id'] }}">Back</button>
+                                            <button type="button" class="btn btn-primary btn-sm" id="nextButton-{{ $tab['id'] }}">Next</button>
+                                            @endif
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card border-primary mb-3">
-                                        <div class="card-header bg-primary text-white">Secondary</div>
-                                        <div class="card-body">
-                                            <ul class="list-unstyled">
-                                                <li><i class="bi bi-check-circle text-success"></i> Form 137/Transcript of Records</li>
-                                                <li><i class="bi bi-check-circle text-success"></i> Birth Certificate</li>
-                                                <li><i class="bi bi-check-circle text-success"></i> Good Moral Character</li>
-                                                <li><i class="bi bi-check-circle text-success"></i> Recent 2x2 Photo</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
-                        </div>
-            
-                        <!-- Form Fields -->
-                        <div class="fields mb-3">
-                            <div class="mb-3">
-                                <label class="form-label">Upload Documents (Optional)</label>
-                                <input type="file" name="documents[]" multiple class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Submission Method</label>
-                                <select name="submissionMethod" class="form-select">
-                                    <option disabled selected>Select method</option>
-                                    <option value="online">Online</option>
-                                    <option value="in_person">In-Person</option>
-                                </select>
-                            </div>
-                        </div>
-            
-                        <!-- Navigation Buttons -->
-                        <div class="buttons d-flex justify-content-between mt-3">
-                            <button type="button" class="btn btn-secondary backBtn">Back</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </form>
-
-        <!-- Display success and error messages -->
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
         </div>
-        @endif
-
-        @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
     </div>
-
-    <script src="{{ mix('js/enrollment/form.js') }}" defer></script>
-</body>
-</html>
+</div>
+@endsection
